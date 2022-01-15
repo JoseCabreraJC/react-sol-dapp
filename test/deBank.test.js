@@ -45,4 +45,45 @@ contract('DeBank', ([owner, customer])  => {
             assert.equal(balance, tokens('1000000'))
         })
     })
+
+    describe('Yield farming', async () => {
+        it('rewards tokens for staking', async () => {
+            let result
+            result = await tether.balanceOf(customer)
+            assert.equal(result.toString(), tokens('1000'), 'investor mock tether balance before Staking')
+            
+            await tether.approve(deBank.address ,tokens('1000'), {from: customer});
+            await deBank.depositToken(tokens('1000'), {from: customer});
+
+            result = await tether.balanceOf(customer)
+            assert.equal(result.toString(), tokens('0'), 'investor mock tether balance after Staking')
+
+            result = await tether.balanceOf(deBank.address)
+            assert.equal(result.toString(), tokens('1000'), 'debank mock tether balance after Staking')
+
+            result = await deBank.isStaking(customer)
+            assert.equal(result.toString(), 'true', 'customer is Staking')
+
+            await deBank.issueTokens({from: owner})
+
+            await deBank.issueTokens({from: customer}).should.be.rejected;
+
+            // unstake tokens
+            await deBank.unstakeTokens({from: customer})
+
+            // check balances
+            result = await tether.balanceOf(customer)
+            assert.equal(result.toString(), tokens('1000'), 'investor mock tether balance after unstaking')
+
+            result = await tether.balanceOf(deBank.address)
+            assert.equal(result.toString(), tokens('0'), 'debank mock tether balance after unstaking')
+
+            result = await deBank.isStaking(customer)
+            assert.equal(result.toString(), 'false', 'customer is no longer Staking')
+
+
+
+        })
+
+    })
 })
