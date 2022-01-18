@@ -2,10 +2,12 @@
   import logo from './assets/svelte.png'
   import Counter from './lib/Counter.svelte'
   import Navbar from './lib/Navbar.svelte'
+
+  let address = '0x12312312'
 </script>
 
 <main>
-  <Navbar />
+  <Navbar {address}/>
   <img src={logo} alt="Svelte Logo" />
   <h1>Hello world!</h1>
 
