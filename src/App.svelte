@@ -1,9 +1,31 @@
 <script>
+  import { onMount } from 'svelte';
+  import Web3 from 'web3'
   import logo from './assets/svelte.png'
   import Counter from './lib/Counter.svelte'
   import Navbar from './lib/Navbar.svelte'
 
   let address = '0x12312312'
+
+  onMount( async () => {
+    await this.loadWeb3()
+    await this.loadBlockchainData()
+  })
+
+  function loadWeb3() {
+    if (window.etherum) {
+      window.web3 = new Web3(window.etherum)
+    } else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider)
+    } else {
+      window.alert('No etherum browser detected. Check out metamask')
+    }
+    }
+  function async loadBlockchainData() {
+    const web3 = window.web3;
+    const account = await web3.eth.getAccounts()
+    console.log(account)
+  }
 </script>
 
 <main>
