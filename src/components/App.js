@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './App.css'
 import Navbar from './Navbar';
 import Web3 from 'web3';
+import Tether from '../truffle_abis/Tether.json' ;
+import RWD from '../truffle_abis/RWD.json' ;
+import DeBank from '../truffle_abis/DeBank.json' ;
 
 class App extends Component {
 
@@ -25,18 +28,58 @@ class App extends Component {
     const web3 = window.web3;
     const account = await web3.eth.getAccounts()
     this.setState({account: account[0]})
-    console.log(account)
-  }  constructor(props){
+    const networkId = await web3.eth.net.getId()
+
+    const tetherData = Tether.networks[networkId]
+    if (tetherData) {
+      const tether = new web3.eth.Contract(Tether.abi, tetherData.address)
+      this.setState({tether})
+      let tetherBalance = await tether.methods.balanceOf(this.state.account).call()
+      this.setState({tetherBalance: tetherBalance.toString()})
+      console.log(tetherBalance)
+    } else {
+      window.alert('Error! Tether contract not deployed - No detected network!')
+    }
+    
+    // load the rewards and balance
+    const rwdData = RWD.networks[networkId]
+    if (rwdData) {
+      const rwd = new web3.eth.Contract(RWD.abi, rwdData.address)
+      this.setState({rwd})
+      let rwdBalance = await rwd.methods.balanceOf(this.state.account).call()
+      this.setState({rwdBalance: rwdBalance.toString()})
+      console.log(rwdBalance)
+    } else {
+      window.alert('Error! RWD contract not deployed - No detected network!')
+    }
+    
+    // load bank data and its balance 
+    const deBankData = DeBank.networks[networkId]
+    if (deBankData) {
+      const deBank = new web3.eth.Contract(DeBank.abi, deBankData.address)
+      this.setState({deBank})
+      let stakingBalance = await deBank.methods.stakingBalance(this.state.account).call()
+      this.setState({stakingBalance: stakingBalance.toString()})
+      console.log(stakingBalance)
+    } else {
+      window.alert('Error! deBank contract not deployed - No detected network!')
+    }
+
+    this.setState({loading: false})
+
+  }
+
+  constructor(props){
     super(props)
     this.state = {
       account: '0x0',
       tether: {},
       rwd: {},
-      decentralBank: {},
+      deBank: {},
       tetherBalance: '0',
       rwdBalance: '0',
       stakingBalance: '0',
-      loading: false,
+      loading: true,
     }
   }
   
@@ -45,7 +88,9 @@ class App extends Component {
       <div>
         <Navbar account={this.state.account}/>
         <div className='text-center green-font'>
-          <h1></h1>
+          <h1>
+            {console.log(this.state.loading)}
+          </h1>
         </div>
       </div>
     );
