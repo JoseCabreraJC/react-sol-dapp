@@ -29,8 +29,8 @@ class Main extends Component {
                           type='text'
                           placeholder='0'
                           required/>
-                          <div className='input-grouped-open'>
-                              <div className='input-grouped-text'>
+                          <div className='input-group-open'>
+                              <div className='input-group-text'>
                                   <img alt='tether' src={tether} height={32}/>
                                   &nbsp;&nbsp;&nbsp;USDT
                               </div>
