@@ -14,16 +14,16 @@ class Main extends Component {
               </thead>
               <tbody>
                 <tr style={{color:'black'}}>
-                      <td>USDT</td>
-                      <td>RWD</td>
+                      <td>{window.web3.utils.fromWei(this.props.stakingBalance, 'Ether')} USDT</td>
+                      <td>{window.web3.utils.fromWei(this.props.rwdBalance, 'Ether')} RWD</td>
                   </tr>
               </tbody>
           </table>
           <div className='card mb-2' style={{opacity:'0.9'}}>
               <form className='mb-3'>
-                  <div style={{borderSpace: '0 1em'}}>
+                  <div style={{borderSpacing: '0 1em'}}>
                       <label className='float-left' style={{marginLeft: '15px'}}><b>Stake tokens</b></label>
-                      <span className='float-right' style={{marginRight:'8px'}}>Balance:</span>
+                      <span className='float-right' style={{marginRight:'8px'}}>Balance: {window.web3.utils.fromWei(this.props.tetherBalance, 'Ether')}</span>
                       <div className='input-group mb-4'>
                           <input
                           type='text'

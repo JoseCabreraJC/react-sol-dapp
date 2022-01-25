@@ -37,7 +37,6 @@ class App extends Component {
       this.setState({tether})
       let tetherBalance = await tether.methods.balanceOf(this.state.account).call()
       this.setState({tetherBalance: tetherBalance.toString()})
-      console.log(tetherBalance)
     } else {
       window.alert('Error! Tether contract not deployed - No detected network!')
     }
@@ -49,7 +48,6 @@ class App extends Component {
       this.setState({rwd})
       let rwdBalance = await rwd.methods.balanceOf(this.state.account).call()
       this.setState({rwdBalance: rwdBalance.toString()})
-      console.log(rwdBalance)
     } else {
       window.alert('Error! RWD contract not deployed - No detected network!')
     }
@@ -61,7 +59,6 @@ class App extends Component {
       this.setState({deBank})
       let stakingBalance = await deBank.methods.stakingBalance(this.state.account).call()
       this.setState({stakingBalance: stakingBalance.toString()})
-      console.log(stakingBalance)
     } else {
       window.alert('Error! deBank contract not deployed - No detected network!')
     }
@@ -86,7 +83,9 @@ class App extends Component {
   
   render() {
     let content 
-    {this.state.loading ? content = <p id='loader' className='text-center' style={{margin: '30px'}}>LOADING...</p> : content = <Main/>}
+    {this.state.loading ?
+      content = <p id='loader' className='text-center' style={{margin: '30px'}}>LOADING...</p> :
+       content = <Main tetherBalance= {this.state.tetherBalance} rwdBalance= {this.state.rwdBalance}/>}
     return (
       <div>
         <Navbar account={this.state.account}/>
