@@ -75,7 +75,13 @@ class App extends Component {
       })
     })
   }
-//   function that unstakes
+  //   function that unstakes
+  unstakeTokens = () => {
+    this.setState({loading: true})
+    this.state.deBank.methods.unstakeTokens().send({from: this.state.account}).on('transactionHash', (hash) => {
+      this.setState({loading: false})  
+    })
+  }
 
   constructor(props){
     super(props)
@@ -95,7 +101,12 @@ class App extends Component {
     let content 
     {this.state.loading ?
       content = <p id='loader' className='text-center' style={{margin: '30px'}}>LOADING...</p> :
-       content = <Main tetherBalance={this.state.tetherBalance} rwdBalance={this.state.rwdBalance} stakingBalance={this.state.stakingBalance} stakeTokens={this.stakeTokens}/>}
+       content = <Main 
+        tetherBalance={this.state.tetherBalance} 
+        rwdBalance={this.state.rwdBalance} 
+        stakingBalance={this.state.stakingBalance} 
+        stakeTokens={this.stakeTokens}
+        unstakeTokens={this.unstakeTokens}/>}
     return (
       <div>
         <Navbar account={this.state.account}/>
