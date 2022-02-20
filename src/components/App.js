@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css'
 import Navbar from './Navbar';
 import Main from './Main';
+import ParticleSettings from './ParticleSettings';
 import Web3 from 'web3';
 import Tether from '../truffle_abis/Tether.json' ;
 import RWD from '../truffle_abis/RWD.json' ;
@@ -100,7 +101,7 @@ class App extends Component {
   render() {
     let content 
     {this.state.loading ?
-      content = <p id='loader' className='text-center' style={{margin: '30px'}}>LOADING...</p> :
+      content = <p id='loader' className='text-center' style={{margin: '30px', color: 'white'}}>LOADING...</p> :
        content = <Main 
         tetherBalance={this.state.tetherBalance} 
         rwdBalance={this.state.rwdBalance} 
@@ -108,7 +109,10 @@ class App extends Component {
         stakeTokens={this.stakeTokens}
         unstakeTokens={this.unstakeTokens}/>}
     return (
-      <div>
+      <div className="App" style={{position:'relative'}}>
+        <div style={{position:'absolute'}}/>
+          <ParticleSettings />
+        </div>
         <Navbar account={this.state.account}/>
         <div className='text-center green-font'>
           <div className='container-fluid mt-5'>

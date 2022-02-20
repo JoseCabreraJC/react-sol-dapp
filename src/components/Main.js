@@ -13,7 +13,7 @@ class Main extends Component {
                   </tr>
               </thead>
               <tbody>
-                <tr style={{color:'black'}}>
+                <tr style={{color:'white'}}>
                       <td>{window.web3.utils.fromWei(this.props.stakingBalance, 'Ether')} USDT</td>
                       <td>{window.web3.utils.fromWei(this.props.rwdBalance, 'Ether')} RWD</td>
                   </tr>
