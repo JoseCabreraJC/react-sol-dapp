@@ -13,7 +13,6 @@ class App extends Component {
   async UNSAFE_componentWillMount() {
     await this.loadWeb3()
     await this.loadBlockchainData()
-
   }
 
   async loadWeb3(){
@@ -110,9 +109,7 @@ class App extends Component {
         unstakeTokens={this.unstakeTokens}/>}
     return (
       <div className="App" style={{position:'relative'}}>
-        <div style={{position:'absolute'}}/>
-          <ParticleSettings />
-        </div>
+        <ParticleSettings />
         <Navbar account={this.state.account}/>
         <div className='text-center green-font'>
           <div className='container-fluid mt-5'>

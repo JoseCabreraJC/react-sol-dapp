@@ -5,7 +5,7 @@ import Particles from 'react-tsparticles'
 class ParticleSettings extends Component{
     render() {
         return (
-            <div>
+            <div style={{position:'absolute'}}>
                 <Particles
                 height='1000px'
                 width='100vw'
