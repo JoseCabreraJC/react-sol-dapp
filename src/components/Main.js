@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import tether from '../tether.png';
+import AirdropTimer from './AirdropTimer';
 
 class Main extends Component {
   render() {
@@ -55,7 +56,7 @@ class Main extends Component {
             }}
             className='btn btn-primary btn-lg btn-block'>WITHDRAW</button>
             <div className='card-body text-center' style={{color:'blue'}}>
-                Air drop
+                Air drop <AirdropTimer stakingBalance={this.props.stakingBalance}/>
             </div>
           </div>
       </div>
